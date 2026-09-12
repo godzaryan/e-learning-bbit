@@ -719,6 +719,9 @@ img {
   transition: all var(--duration-normal) var(--ease-out);
   text-decoration: none;
   color: var(--text-primary);
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
 }
 
 .folder-card:hover {
@@ -783,6 +786,9 @@ img {
   border-radius: var(--radius-md);
   transition: all var(--duration-normal) var(--ease-out);
   cursor: pointer;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
 }
 
 .file-card:hover {
