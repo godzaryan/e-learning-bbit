@@ -918,10 +918,11 @@ img {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 20px;
+  padding: 16px 20px;
   border-bottom: 1px solid var(--border-light);
-  gap: 12px;
-  flex-shrink: 0;
+  background: var(--bg-card);
+  position: relative;
+  z-index: 10;
 }
 
 .preview-header-left {
@@ -933,26 +934,25 @@ img {
 }
 
 .preview-file-icon {
-  font-size: 20px;
+  font-size: 24px;
+  line-height: 1;
   flex-shrink: 0;
 }
 
 .preview-title-group {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   min-width: 0;
-  flex: 1;
 }
 
 .preview-title {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   flex: 1;
-  min-width: 0;
 }
 
 .preview-type-badge {
@@ -977,8 +977,8 @@ img {
 }
 
 .preview-close-btn {
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
@@ -986,6 +986,7 @@ img {
   color: var(--text-secondary);
   transition: all var(--duration-fast);
   flex-shrink: 0;
+  cursor: pointer;
 }
 
 .preview-close-btn:hover {
@@ -1180,11 +1181,11 @@ img {
   .preview-modal,
   .preview-modal--image,
   .preview-modal--video {
-    max-height: 100dvh;
+    max-height: 100%;
     max-width: 100%;
     width: 100%;
     border-radius: 0;
-    height: 100dvh;
+    height: 100%;
   }
 
   .preview-header {
