@@ -53,12 +53,23 @@ export default function FilePreview({ file, onClose }: FilePreviewProps) {
     [onClose]
   );
 
+  const handleClose = useCallback(() => {
+    // Defer the unmount slightly to prevent Android touch dispatcher from freezing
+    // when removing heavy iframes synchronously during a click event.
+    setTimeout(() => {
+      onClose();
+    }, 10);
+  }, [onClose]);
+
   useEffect(() => {
     document.addEventListener("keydown", handleKeyDown);
+    // Save original overflow to restore it properly
+    const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "";
+      document.body.style.overflow = originalOverflow;
     };
   }, [handleKeyDown]);
 
@@ -66,7 +77,7 @@ export default function FilePreview({ file, onClose }: FilePreviewProps) {
     <div
       className="preview-overlay"
       onClick={(e) => {
-        if (e.target === e.currentTarget) onClose();
+        if (e.target === e.currentTarget) handleClose();
       }}
       role="dialog"
       aria-modal="true"
@@ -121,7 +132,7 @@ export default function FilePreview({ file, onClose }: FilePreviewProps) {
             </a>
             <button
               className="preview-close-btn"
-              onClick={onClose}
+              onClick={handleClose}
               aria-label="Close preview"
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round">
