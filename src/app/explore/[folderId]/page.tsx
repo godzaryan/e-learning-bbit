@@ -28,13 +28,22 @@ export default function ExploreFolderPage(
 
   useEffect(() => {
     async function fetchData() {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 20000);
+
       try {
-        const res = await fetch("/api/drive");
+        const res = await fetch("/api/drive", { signal: controller.signal });
+        clearTimeout(timeoutId);
+
         if (!res.ok) throw new Error("Failed to load content");
         const data = await res.json();
         setTree(data);
       } catch (err) {
-        setError(err instanceof Error ? err.message : "Something went wrong");
+        if (err instanceof Error && err.name === "AbortError") {
+          setError("Connection timed out. Please try again.");
+        } else {
+          setError(err instanceof Error ? err.message : "Something went wrong");
+        }
       } finally {
         setLoading(false);
       }

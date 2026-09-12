@@ -110,11 +110,17 @@ export async function POST(request: NextRequest) {
       url.searchParams.set("folderId", siteConfig.driveFolderId);
       url.searchParams.set("bustCache", Date.now().toString());
 
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 10000);
+
       const response = await fetch(url.toString(), {
         method: "GET",
         headers: { Accept: "application/json" },
         redirect: "follow",
+        signal: controller.signal,
       });
+
+      clearTimeout(timeoutId);
 
       if (response.ok) {
         const freshData = await response.json();
@@ -182,11 +188,19 @@ export async function GET(request: NextRequest) {
     const url = new URL(siteConfig.driveAppsScriptUrl);
     url.searchParams.set("folderId", folderId);
 
+    // Enforce a strict 15-second timeout on the upstream fetch
+    // to absolutely prevent infinite hanging.
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 15000);
+
     const response = await fetch(url.toString(), {
       method: "GET",
       headers: { Accept: "application/json" },
       redirect: "follow",
+      signal: controller.signal,
     });
+
+    clearTimeout(timeoutId);
 
     if (!response.ok) {
       throw new Error(`Upstream error: ${response.status}`);
@@ -202,7 +216,7 @@ export async function GET(request: NextRequest) {
         "Cache-Control": "public, s-maxage=300, stale-while-revalidate=600",
       },
     });
-  } catch {
+  } catch (error) {
     // Return stale cache if available
     if (cachedData) {
       return secureJson(cachedData.data, {
