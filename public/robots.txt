@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Allow: /explore
+
+# Block API and internal routes from crawlers
+Disallow: /api/
+Disallow: /_next/
+
+# Sitemap
+Sitemap: https://bbit-elearning.vercel.app/sitemap.xml

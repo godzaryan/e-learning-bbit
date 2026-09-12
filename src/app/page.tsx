@@ -1,69 +1,74 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import Link from "next/link";
+import { siteConfig } from "@/config/site";
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>
-            To get started, edit the{" "}
-            <code className={styles.code}>page.tsx</code> file.
-          </h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <section className="hero" id="hero-section">
+      {/* Animated Background Orbs */}
+      <div className="hero-bg" aria-hidden="true">
+        <div className="hero-gradient-orb" />
+        <div className="hero-gradient-orb" />
+        <div className="hero-gradient-orb" />
+      </div>
+
+      <div className="hero-content page-enter">
+        <div className="hero-badge">
+          <span className="hero-badge-dot" />
+          Pedagogical Initiative
         </div>
-        <div className={styles.ctas}>
+
+        <h1 className="hero-title">
+          Learn Without
+          <br />
+          <span className="hero-title-accent">Boundaries</span>
+        </h1>
+
+        <p className="hero-subtitle">
+          Access curated study materials from {siteConfig.fullName}. 
+          Browse, preview, and download resources organized for your academic journey.
+        </p>
+
+        <div className="hero-actions">
+          <Link href="/explore" className="btn btn-primary" id="cta-explore">
+            <svg
+              className="btn-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+            Explore Content
+          </Link>
+
           <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
+            href={siteConfig.lmsUrl}
             target="_blank"
             rel="noopener noreferrer"
+            className="btn btn-secondary"
+            id="cta-lms"
           >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
+            Go to LMS
+            <svg
+              className="btn-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
+              <polyline points="15 3 21 3 21 9" />
+              <line x1="10" y1="14" x2="21" y2="3" />
+            </svg>
           </a>
         </div>
-      </main>
-    </div>
+      </div>
+    </section>
   );
 }
