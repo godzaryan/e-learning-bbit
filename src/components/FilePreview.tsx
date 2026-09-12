@@ -133,6 +133,14 @@ export default function FilePreview({ file, onClose }: FilePreviewProps) {
             <button
               className="preview-close-btn"
               onClick={handleClose}
+              onTouchEnd={(e) => {
+                e.preventDefault(); // Prevent ghost clicks
+                handleClose();
+              }}
+              onPointerDown={(e) => {
+                // Ensure focus doesn't get trapped by iframe
+                e.preventDefault();
+              }}
               aria-label="Close preview"
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round">
