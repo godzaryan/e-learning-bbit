@@ -23,7 +23,7 @@ export const siteConfig = {
     twitter: "https://twitter.com",
     github: "https://github.com",
   },
-  lmsUrl: "#lms",
+  lmsUrl: "https://bbitlab.netlify.app/",
   driveAppsScriptUrl: process.env.APPS_SCRIPT_URL || "",
   driveFolderId: "12m989O-EbtuuuRoAdc5bnwld19iaSVbo",
   cacheTTL: 5 * 60 * 1000, // 5 minutes in ms
